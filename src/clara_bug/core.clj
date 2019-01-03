@@ -13,7 +13,10 @@
 
 (rules/defrule notify-client-rep
   "Find the client representative and send a notification of a support request."
+
+  ;; Adding this :exists causes the firing of rules to fail with ClassNotFoundException
   [:exists [SupportRequest (= ?client client)]]
+
   [ClientRepresentative (= ?client client) (= ?name name)] ; Join via the ?client binding.
   =>
   (println "Notify" ?name "that"  ?client "has a new support request!"))
